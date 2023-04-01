@@ -17,13 +17,13 @@ app.use(express.urlencoded({ extended: false }));
 sdk.auth(apiKey);
 
 app.post("/generate-content", async (req, res) => {
-  const { inputText } = req.body;
+  const { question } = req.body;
   try {
     const response = await sdk.chatsonic_V2BusinessContentChatsonic_post(
       {
         enable_google_results: true,
         enable_memory: false,
-        input_text: inputText,
+        input_text: question,
       },
       { engine: "premium" }
     );
@@ -34,7 +34,6 @@ app.post("/generate-content", async (req, res) => {
   }
 });
 
-// Set storage engine for multer
 const storage = multer.memoryStorage();
 
 // Init upload
@@ -49,12 +48,13 @@ app.post("/upload", (req, res) => {
       console.error(err);
       res.sendStatus(500);
     } else {
-      // Parse the PDF file and console log the contents
+      // Parse the PDF file and send the parsed text as a response
       const pdfData = req.file.buffer;
       pdf(pdfData)
         .then((data) => {
-          console.log("HELLO ......     ",data.text);
-          res.sendStatus(200);
+          const parsedText = data.text;
+          console.log(parsedText);
+          res.send(parsedText);
         })
         .catch((err) => {
           console.error(err);

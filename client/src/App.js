@@ -1,67 +1,82 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 function App() {
   const [inputText, setInputText] = useState("");
+  const [query, setQuery] = useState("");
   const [result, setResult] = useState("");
 
   const handleInputChange = (e) => setInputText(e.target.value);
+  const consoleLog = (e) => {
+    setQuery(
+      inputText +
+        "\n\nAnswer the above question with respect to the context below. The response should not exceed 300 characters:-\n" +
+        parsedText
+    );
 
+    console.log("QUERY SET");
+    console.log(query);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputText) return; // add this line to prevent empty input
 
     try {
+      let question =
+        inputText +
+        "\n\nAnswer the above question with respect to the context below. The response should not exceed 300 characters:-\n" +
+        parsedText;
+      console.log(".....", question, ".....");
       const response = await fetch("/generate-content", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputText }),
+        body: JSON.stringify({ question }),
       });
+
       const data = await response.json();
       setResult(data.message);
     } catch (error) {
       console.error(error);
     }
   };
-  const [pdfFile, setPdfFile] = useState(null);
 
-  // Handle file input change
-  const handleFileChange = (event) => {
+  const [pdfFile, setPdfFile] = useState(null);
+  const [parsedText, setParsedText] = useState(null);
+
+  const handlePdfFileChange = (event) => {
     setPdfFile(event.target.files[0]);
   };
 
-  // Handle file upload
-  const handleFileUpload = () => {
+  const handlePdfFileUpload = () => {
     const formData = new FormData();
     formData.append("pdfFile", pdfFile);
-
-    axios
-      .post("/upload", formData)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    fetch("/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.text())
+      .then((text) => setParsedText(text))
+      .catch((error) => console.error(error));
   };
 
   return (
     <div className="App">
       <div>
-        <h1>PDF File Uploader</h1>
-        <input type="file" onChange={handleFileChange} />
-        <button onClick={handleFileUpload}>Upload</button>
+        <input type="file" accept=".pdf" onChange={handlePdfFileChange} />
+        <button onClick={handlePdfFileUpload}>Upload</button>
+        {/* {parsedText && <div>{parsedText}</div>} */}
+        {/* {console.log(parsedText)} */}
       </div>
 
-      <h1>Generate Content</h1>
+      <h1>Ask GPT</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Input Text:
+          Question:
           <input type="text" value={inputText} onChange={handleInputChange} />
         </label>
-        <button type="submit">Generate</button>
+        <button type="submit">Ask</button>
       </form>
       {result && (
         <div>

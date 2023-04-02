@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 // import axios from "axios";
-
+import Loading from "./Loading";
 function App() {
   const [inputText, setInputText] = useState("");
   const [query, setQuery] = useState("");
   const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => setInputText(e.target.value);
   const consoleLog = (e) => {
@@ -20,7 +21,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputText) return; // add this line to prevent empty input
-
+    setLoading(true);
     try {
       let question =
         inputText +
@@ -39,6 +40,8 @@ function App() {
       setResult(data.message);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false); // set loading state to false after finishing the form submission
     }
   };
 
@@ -48,8 +51,8 @@ function App() {
   const handlePdfFileChange = (event) => {
     setPdfFile(event.target.files[0]);
   };
-
   const handlePdfFileUpload = () => {
+    setLoading(true); // set loading state to true
     const formData = new FormData();
     formData.append("pdfFile", pdfFile);
     fetch("/upload", {
@@ -58,7 +61,8 @@ function App() {
     })
       .then((response) => response.text())
       .then((text) => setParsedText(text))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false)); // set loading state to false after finishing the upload
   };
 
   return (
@@ -66,8 +70,9 @@ function App() {
       <div>
         <input type="file" accept=".pdf" onChange={handlePdfFileChange} />
         <button onClick={handlePdfFileUpload}>Upload</button>
-        {/* {parsedText && <div>{parsedText}</div>} */}
-        {/* {console.log(parsedText)} */}
+        {loading && <Loading />}
+
+        {parsedText && <div>{parsedText}</div>}
       </div>
 
       <h1>Ask GPT</h1>
@@ -78,6 +83,8 @@ function App() {
         </label>
         <button type="submit">Ask</button>
       </form>
+      {loading && <Loading />}
+
       {result && (
         <div>
           <h2>Result:</h2>

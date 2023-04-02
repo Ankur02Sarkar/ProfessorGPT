@@ -3,7 +3,7 @@ const cors = require("cors");
 
 const multer = require("multer");
 const pdf = require("pdf-parse");
-
+const path = require("path");
 const sdk = require("api")("@writesonic/v2.2#4enbxztlcbti48j");
 
 const apiKey = "ecb4490a-cd1e-475e-b53b-e23db844690c";
@@ -13,6 +13,15 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// deployment
+__dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+);
+//
 
 sdk.auth(apiKey);
 

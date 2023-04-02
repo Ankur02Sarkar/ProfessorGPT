@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# ProfessorGPT
+ProfessorGPT is an innovative online platform designed to help users easily find answers to their questions from any uploaded PDF file. With ProfessorGPT, you no longer need to waste time reading through hundreds of pages to find the information you need. Simply upload your PDF file and ask any question, and ProfessorGPT will provide you with accurate answers in no time. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Our platform is perfect for students, researchers, and professionals who want to save time and increase productivity. With ProfessorGPT, you can easily get answers to any question related to your PDF file, making it easier for you to focus on what matters most. 
 
-In the project directory, you can run:
 
-### `npm start`
+Try ProfessorGPT today and experience the convenience of having all the answers at your fingertips!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
+Install the Necessary Packages
+```bash
+npm install
+```
+Then, Run the development server:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-### `npm test`
+## Features
+* PDF file upload: Users can easily upload any PDF file to the platform.
+* Question asking: Users can ask any question related to their uploaded PDF file.
+* Accurate answers: ProfessorGPT uses advanced AI to provide accurate answers to user questions.
+* Time-saving: ProfessorGPT saves time by quickly providing answers without the need to read through entire PDFs.
+* Universal compatibility: ProfessorGPT works with all types of PDF files, regardless of their content or complexity
+* User-friendly interface: The platform is easy to use and navigate, making it accessible to users of all skill levels
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
+* React JS
+* Chakra UI
+* WriteSonic
+* OpenAi
+* Multer
+* Express JS
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Meet the Team
+* [@Ankur02Sarkar](https://github.com/Ankur02Sarkar/)
+* [@lazyfuhrer](https://github.com/lazyfuhrer/)

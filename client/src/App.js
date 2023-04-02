@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Text,
+  Heading,
   FormControl,
   FormLabel,
   Input,
@@ -95,6 +96,10 @@ function App() {
         bg="gray.800"
         color="white"
       >
+        <Heading as="h1" size="xl" mb="10" textAlign="center">
+          Welcome to ProfessorGPT
+        </Heading>
+
         <Box
           p="4"
           borderWidth="1px"
@@ -124,9 +129,14 @@ function App() {
             <Text fontSize="xl" mb="4">
               Question:
             </Text>
-            <Input type="text" value={inputText} onChange={handleInputChange} />
+            <Input
+              type="text"
+              value={inputText}
+              onChange={handleInputChange}
+              mb="4"
+            />
 
-            <Button colorScheme="green" type="submit">
+            <Button colorScheme="green" type="submit" mb="4">
               Ask
             </Button>
           </form>

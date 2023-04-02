@@ -1,6 +1,26 @@
-import React, { useState } from "react";
-// import axios from "axios";
+import { useState } from "react";
+import {
+  Flex,
+  Box,
+  Button,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  useToast,
+  ChakraProvider,
+  extendTheme,
+} from "@chakra-ui/react";
 import Loading from "./Loading";
+
+const theme = extendTheme({
+  config: {
+    initialColorMode: "dark",
+    useSystemColorMode: false,
+  },
+});
+
 function App() {
   const [inputText, setInputText] = useState("");
   const [query, setQuery] = useState("");
@@ -20,7 +40,7 @@ function App() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!inputText) return; // add this line to prevent empty input
+    if (!inputText) return;
     setLoading(true);
     try {
       let question =
@@ -41,7 +61,7 @@ function App() {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false); // set loading state to false after finishing the form submission
+      setLoading(false);
     }
   };
 
@@ -52,7 +72,7 @@ function App() {
     setPdfFile(event.target.files[0]);
   };
   const handlePdfFileUpload = () => {
-    setLoading(true); // set loading state to true
+    setLoading(true);
     const formData = new FormData();
     formData.append("pdfFile", pdfFile);
     fetch("/upload", {
@@ -62,36 +82,71 @@ function App() {
       .then((response) => response.text())
       .then((text) => setParsedText(text))
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false)); // set loading state to false after finishing the upload
+      .finally(() => setLoading(false));
   };
 
   return (
-    <div className="App">
-      <div>
-        <input type="file" accept=".pdf" onChange={handlePdfFileChange} />
-        <button onClick={handlePdfFileUpload}>Upload</button>
-        {loading && <Loading />}
+    <ChakraProvider theme={theme}>
+      <Flex
+        height="100vh"
+        alignItems="center"
+        justifyContent="center"
+        direction="column"
+        bg="gray.800"
+        color="white"
+      >
+        <Box
+          p="4"
+          borderWidth="1px"
+          borderRadius="lg"
+          textAlign="center"
+          mb="8"
+        >
+          <Text fontSize="xl" mb="4">
+            Upload a PDF file
+          </Text>
+          <Input type="file" onChange={handlePdfFileChange} />
+          <Button colorScheme="green" mt="4" onClick={handlePdfFileUpload}>
+            Upload
+          </Button>
+          {loading && <Loading />}
+        </Box>
 
-        {parsedText && <div>{parsedText}</div>}
-      </div>
+        <Box
+          p="4"
+          borderWidth="1px"
+          borderRadius="lg"
+          textAlign="center"
+          mb="8"
+          width="70%"
+        >
+          <form onSubmit={handleSubmit}>
+            <Text fontSize="xl" mb="4">
+              Question:
+            </Text>
+            <Input type="text" value={inputText} onChange={handleInputChange} />
 
-      <h1>Ask GPT</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Question:
-          <input type="text" value={inputText} onChange={handleInputChange} />
-        </label>
-        <button type="submit">Ask</button>
-      </form>
-      {loading && <Loading />}
+            <Button colorScheme="green" type="submit">
+              Ask
+            </Button>
+          </form>
+          {loading && <Loading />}
 
-      {result && (
-        <div>
-          <h2>Result:</h2>
-          <p dangerouslySetInnerHTML={{ __html: result }}></p>
-        </div>
-      )}
-    </div>
+          {result && (
+            <Textarea
+              placeholder=""
+              size={"lg"}
+              mb="4"
+              value={result}
+              bg="gray.700"
+              color="white"
+              _placeholder={{ color: "gray.400" }}
+              isReadOnly
+            />
+          )}
+        </Box>
+      </Flex>
+    </ChakraProvider>
   );
 }
 

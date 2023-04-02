@@ -1,15 +1,18 @@
 <<<<<<< HEAD
 import React, { useState } from "react";
 // import axios from "axios";
-import Loading from "./Loading";
+
 function App() {
   const [inputText, setInputText] = useState("");
   const [query, setQuery] = useState("");
   const [result, setResult] = useState("");
+<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
 =======
 // import React, { useState } from "react";
 // // import axios from "axios";
+=======
+>>>>>>> parent of 393500a (added loaders)
 
 // function App() {
 //   const [inputText, setInputText] = useState("");
@@ -128,7 +131,7 @@ function PdfUploadPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputText) return; // add this line to prevent empty input
-    setLoading(true);
+
     try {
       let question =
         inputText +
@@ -147,6 +150,7 @@ function PdfUploadPage() {
       setResult(data.message);
     } catch (error) {
       console.error(error);
+<<<<<<< HEAD
     } finally {
       setLoading(false); // set loading state to false after finishing the form submission
 =======
@@ -161,6 +165,8 @@ function PdfUploadPage() {
       });
       return;
 >>>>>>> origin/main
+=======
+>>>>>>> parent of 393500a (added loaders)
     }
 
     // Upload logic here
@@ -178,8 +184,11 @@ function PdfUploadPage() {
     setQuestionTitle(event.target.value);
   };
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 393500a (added loaders)
   const handlePdfFileUpload = () => {
-    setLoading(true); // set loading state to true
     const formData = new FormData();
     formData.append("pdfFile", pdfFile);
     fetch("/upload", {
@@ -188,8 +197,7 @@ function PdfUploadPage() {
     })
       .then((response) => response.text())
       .then((text) => setParsedText(text))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false)); // set loading state to false after finishing the upload
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -197,9 +205,7 @@ function PdfUploadPage() {
       <div>
         <input type="file" accept=".pdf" onChange={handlePdfFileChange} />
         <button onClick={handlePdfFileUpload}>Upload</button>
-        {loading && <Loading />}
-
-        {parsedText && <div>{parsedText}</div>}
+        {/* {parsedText && <div>{parsedText}</div>} */}
         {/* {console.log(parsedText)} */}
       </div>
 
@@ -211,8 +217,6 @@ function PdfUploadPage() {
         </label>
         <button type="submit">Ask</button>
       </form>
-      {loading && <Loading />}
-
       {result && (
         <div>
           <h2>Result:</h2>

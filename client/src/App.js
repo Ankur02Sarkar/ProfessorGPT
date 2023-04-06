@@ -10,6 +10,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const [contents, setContents] = useState("");
+  const [filename, setFilename] = useState("");
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -21,6 +22,7 @@ function App() {
     formData.append("file", file);
     const response = await axios.post("http://localhost:8000/pdf", formData);
     setContents(response.data.contents);
+    setFilename(file.name)
   };
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -44,27 +46,6 @@ function App() {
       console.error(error);
     }
   };
-  /*
-
-    const [selectedFile, setSelectedFile] = useState(null);
-    const fileSelectedHandler = (event) => {
-      setSelectedFile(event.target.files[0]);
-    };
-    const fileUploadHandler = () => {
-      setLoading(true);
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      axios
-        .post("http://localhost:8000/pdf", formData)
-        .then((response) => {
-          console.log(response);
-          setParsedText(response.data);
-        })
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-    };
-
-  */
 
   return (
     <div className="container">
@@ -77,60 +58,44 @@ function App() {
           <button type="submit">Scan PDF</button>
         </form>
       </div>
-      <div align="center" className="formDiv queryForm">
-        <form className="">
-          <label>
-            <input type="text" value={query} onChange={handleInputChange} />
-          </label>
-          <BsFillSendFill onClick={handleBsFillSendFillClick} />
-        </form>
-      </div>
-      <div className="grid-container">
-        {data.map((item, index) => (
-          <div key={index} className="query-response">
-            <div className="query">
-              <p>{item.query}</p>
-            </div>
+      {(contents && <>
+        <div className="grid-container">
+          <div className="">
             <div className="response">
-              <p>{item.response}</p>
+              <p>{filename} has been Scanned</p>
+            </div>
+            <div>
+              <div className="query">
+                <p>lorem</p>
+              </div>
+              <div className="response">
+                <p>ipsum</p>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
+          {data.map((item, index) => (
+            <div key={index} className="query-response">
+              <div className="query">
+                <p>{item.query}</p>
+              </div>
+              <div className="response">
+                <p>{item.response}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div align="center" className="formDiv queryForm">
+          <form className="">
+            <label>
+              <input type="text" value={query} onChange={handleInputChange} />
+            </label>
+            <BsFillSendFill className="sendIcon" onClick={handleBsFillSendFillClick} />
+          </form>
+        </div>
+
+      </>)}
     </div>
   );
 }
 
-export default App; 
-
-
-// import React, { useState } from "react";
-// import axios from "axios";
-
-// function App() {
-//   const [file, setFile] = useState(null);
-//   const [contents, setContents] = useState("");
-
-//   const handleFileChange = (event) => {
-//     setFile(event.target.files[0]);
-//   };
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     const formData = new FormData();
-//     formData.append("file", file);
-//     const response = await axios.post("http://localhost:8000/pdf", formData);
-//     setContents(response.data.contents);
-//   };
-//   return (
-//     <div>
-//       <form onSubmit={handleSubmit}>
-//         <input type="file" onChange={handleFileChange} />
-//         <button type="submit">View PDF</button>
-//       </form>
-//       <div>{contents}</div>
-//     </div>
-//   );
-// }
-
-// export default App;
+export default App;

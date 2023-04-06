@@ -41,7 +41,8 @@ body {
 }
 
 .query p {
-  background-color: blue;
+  background-color: #045de9;
+  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
   color: white;
   padding: 10px;
   border-radius: 5px;
@@ -49,7 +50,9 @@ body {
 }
 
 .response p {
-  background-color: red;
+  background-color: #fc9842;
+  background-image: linear-gradient(315deg, #fc9842 0%, #fe5f75 74%);
+  
   color: white;
   padding: 10px;
   border-radius: 5px;
@@ -77,6 +80,9 @@ body {
   bottom: 0;
   width: 90%;
   padding: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 2;
 }
 
@@ -96,4 +102,8 @@ body {
   background: #e2e2e2;
   padding: 10px;
   border-radius: 9px;
+}
+
+.sendIcon:hover {
+  background: #d2d2d2;
 }

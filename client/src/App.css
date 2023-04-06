@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+body {
+  background-color: #2f3042;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  width: 80%;
+  margin-top: 20px;
+  min-height: 100px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.query-response {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr; */
+  grid-gap: 10px;
+}
+
+.query {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.response {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.query p {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.response p {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+
+.formDiv {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.container h1 {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.formDiv input,
+.formDiv button {
+  font-size: 17px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.queryForm {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  padding: 14px;
+  z-index: 2;
+}
+
+.queryForm form {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  justify-content: center;
+}
+
+.queryForm form input {
+  width: 82vw;
+}
+
+.sendIcon {
+  cursor: pointer;
+  background: #e2e2e2;
+  padding: 10px;
+  border-radius: 9px;
 }

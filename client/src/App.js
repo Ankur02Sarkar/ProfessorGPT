@@ -23,6 +23,12 @@ function App() {
     const response = await axios.post("http://localhost:8000/pdf", formData);
     setContents(response.data.contents);
     setFilename(file.name)
+    const pdfContext = await axios.get("http://localhost:8000/api", {
+      params: {
+        query: "All of the following questions must be answered strictly according to the following context :- \n"
+          + response.data.contents
+      },
+    })
   };
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -35,9 +41,9 @@ function App() {
       } = await axios.get("http://localhost:8000/api", {
         params: {
           query:
-            query +
-            "\n Answer the above question with respect to the context below. The response should not exceed 300 characters :- \n" +
-            contents,
+            query
+          // + "\n Answer the above question with respect to the context below. The response should not exceed 300 characters :- \n" +
+          // contents,
         },
       });
       setData((prevData) => [...prevData, { query, response: message }]);
@@ -58,20 +64,22 @@ function App() {
           <button type="submit">Scan PDF</button>
         </form>
       </div>
+      {/* {
+        contents && (
+           axios.get("http://localhost:8000/api", {
+            params: {
+              query: "All of the following questions must be answered strictly according to the following context :- \n"
+                + contents
+            },
+          })
+        )
+      } */}
       {(contents && <>
         <div className="grid-container">
           <div className="">
             <div className="response">
               <p>{filename} has been Scanned</p>
             </div>
-            {/* <div>
-              <div className="query">
-                <p>lorem</p>
-              </div>
-              <div className="response">
-                <p>ipsum</p>
-              </div>
-            </div> */}
           </div>
           {data.map((item, index) => (
             <div key={index} className="query-response">

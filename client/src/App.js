@@ -64,14 +64,14 @@ function App() {
             <div className="response">
               <p>{filename} has been Scanned</p>
             </div>
-            <div>
+            {/* <div>
               <div className="query">
                 <p>lorem</p>
               </div>
               <div className="response">
                 <p>ipsum</p>
               </div>
-            </div>
+            </div> */}
           </div>
           {data.map((item, index) => (
             <div key={index} className="query-response">

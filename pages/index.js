@@ -1,12 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import { useState } from "react";
-import classNames from 'classnames';
+import classNames from "classnames";
 import { BsFillSendFill } from "react-icons/bs";
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -27,13 +27,14 @@ export default function Home() {
     formData.append("file", file);
     const response = await axios.post("http://localhost:8000/pdf", formData);
     setContents(response.data.contents);
-    setFilename(file.name)
+    setFilename(file.name);
     const pdfContext = await axios.get("http://localhost:8000/api", {
       params: {
-        query: "All of the following questions must be answered strictly according to the following context :- \n"
-          + response.data.contents
+        query:
+          "Answer the questions from the following context :- \n" +
+          response.data.contents,
       },
-    })
+    });
   };
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -45,10 +46,9 @@ export default function Home() {
         data: { message },
       } = await axios.get("http://localhost:8000/api", {
         params: {
-          query:
-            query
-          // + "\n Answer the above question with respect to the context below. The response should not exceed 300 characters :- \n" +
-          // contents,
+          query: query
+          + "\n Answer the above question with respect to the context below. The response should not exceed 300 characters :- \n" +
+          contents,
         },
       });
       setData((prevData) => [...prevData, { query, response: message }]);
@@ -77,34 +77,45 @@ export default function Home() {
           </form>
         </div>
 
-        {(contents && <>
-          <div className={styles.gridContainer}>
-            <div >
-              <div className={styles.response}>
-                <p>{filename} has been Scanned</p>
-              </div>
-            </div>
-            {data.map((item, index) => (
-              <div key={index} className={styles.queryResponse}>
-                <div className={styles.query}>
-                  <p>{item.query}</p>
-                </div>
+        {contents && (
+          <>
+            <div className={styles.gridContainer}>
+              <div>
                 <div className={styles.response}>
-                  <p>{item.response}</p>
+                  <p>{filename} has been Scanned</p>
                 </div>
               </div>
-            ))}
-          </div>
-          <div align="center" className={classNames(styles.formDiv, 'queryForm')}>
-            <form className={styles.formMain}>
-              <label>
-                <input type="text" value={query} onChange={handleInputChange} />
-              </label>
-              <BsFillSendFill className={styles.sendIcon} onClick={handleBsFillSendFillClick} />
-            </form>
-          </div>
-
-        </>)}
+              {data.map((item, index) => (
+                <div key={index} className={styles.queryResponse}>
+                  <div className={styles.query}>
+                    <p>{item.query}</p>
+                  </div>
+                  <div className={styles.response}>
+                    <p>{item.response}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div
+              align="center"
+              className={classNames(styles.formDiv, "queryForm")}
+            >
+              <form className={styles.formMain}>
+                <label>
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <BsFillSendFill
+                  className={styles.sendIcon}
+                  onClick={handleBsFillSendFillClick}
+                />
+              </form>
+            </div>
+          </>
+        )}
       </div>
       {/* <main className={styles.main}>
         <div className={styles.description}>
@@ -211,5 +222,5 @@ export default function Home() {
         </div>
       </main> */}
     </>
-  )
+  );
 }
